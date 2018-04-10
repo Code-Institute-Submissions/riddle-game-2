@@ -3,4 +3,15 @@
 
 <p>Hi {{ username.title() }}! Guess the answer!</p>
 
+
+<hr>
+<a href="{{ url_for('logout_user', username=username) }}">Logout</a>
+
+<hr>
+<h2>Online users:</h2>
+
+{% for user in online_users %}
+<li>{{ user.title() }}</li>
+{% endfor %}
+
 {% endblock %}
