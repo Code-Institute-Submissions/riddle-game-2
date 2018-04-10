@@ -1,0 +1,102 @@
+[
+    {
+        "id": 1,
+        "question": "What do you call a three humpped camel?",
+        "answer": "Pregnant"
+    },
+    {
+        "id": 2,
+        "question": "What has four fingers and a thumb, but is not living?",
+        "answer": "Glove"
+    },
+    {
+        "id": 3,
+        "question": "I have keys but no locks. I have a space but no room. You can enter, but can’t go outside. What am I?",
+        "answer": "Keyboard"
+    },
+    {
+        "id": 4,
+        "question": "I can only live where there is light, but I die if the light shines on me. What am I?",
+        "answer": "Shadow"
+    },
+    {
+        "id": 5,
+        "question": "What gets wetter and wetter the more it dries?",
+        "answer": "Towel"
+    },
+    {
+        "id": 6,
+        "question": "Which word in the dictionary is spelled incorrectly?",
+        "answer": "Incorrectly"
+    },
+    {
+        "id": 7,
+        "question": "I’m always there, some distance away. Somewhere between land or sea and sky I lay. You may move towards me, yet distant I stay.",
+        "answer": "Horizon"
+    },
+    {
+        "id": 8,
+        "question": "Your finger fits right in it. You play with it when you're bored. Once you're married, you're stuck with the same one forever. What is it?",
+        "answer": "Ring"
+    },
+    {
+        "id": 9,
+        "question": "What’s in a man’s pants that you won’t find in a girl’s dress?",
+        "answer": "Pockets"
+    },
+    {
+        "id": 10,
+        "question": "What is the only 5 letter word that becomes larger when you add the letter “r” to it?",
+        "answer": "Large"
+    },
+    {
+        "id": 11,
+        "question": "Dark or white, sweet or bitter, sometime I can be Belgian and sometimes I can be Swiss. What am I?",
+        "answer": "Chocolate"
+    },
+    {
+        "id": 12,
+        "question": "What kind of tree do you carry in your hand?",
+        "answer": "Palm"
+    },
+    {
+        "id": 13,
+        "question": "What is always comming but never arrives?",
+        "answer": "Tomorrow"
+    },
+    {
+        "id": 14,
+        "question": "What disappears the second you start talking about it?",
+        "answer": "Silence"
+    },
+    {
+        "id": 15,
+        "question": "What goes swimming with you but never gets wet?",
+        "answer": "Shadow"
+    },
+    {
+        "id": 16,
+        "question": "What's orange and sounds like a parrot?",
+        "answer": "Carrot"
+    },
+    {
+        "id": 17,
+        "question": "What goes up and never comes down?",
+        "answer": "Age"
+    },
+    {
+        "id": 18,
+        "question": "You can't keep this until you have given it.",
+        "answer": "Promise"
+    },
+    {
+        "id": 19,
+        "question": "What goes up and down but never moves?",
+        "answer": "Stairs"
+    },
+    {
+        "id": 20,
+        "question": "What do you call two witches who live together?",
+        "answer": "Broommates"
+    }   
+]

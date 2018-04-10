@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST">
+    <label for="username">Select your username to start playing!</label>
+    <input type="text" id="username" name="username">
+    <button>Start Game</button>
+    {{ message }}
+</form>
+
+{% endblock %}
