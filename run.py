@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for
 import os
 import json
 import random
@@ -67,27 +67,46 @@ def login_user():
 @app.route('/<username>', methods=['GET', 'POST'])
 def user_play_game(username):   
     riddles_data = []
-    
     # Load data from riddles.json
     with open('data/riddles.json', 'r') as json_data:
         riddles_data = json.load(json_data)
     
     riddle_index = 0
+    all_scores = len(riddles_data)
+    scores = 0
+    
     if request.method == 'POST':
         answer = request.form['answer'].lower()
         # Get current index from template
         riddle_index = int(request.form['riddle_index'])
-        # If correct answer and not the last riddle, go to next riddle, else add answer to wrong answers
+        # Get current scores from template
+        scores = int(request.form['scores'])
+        # If correct answer and not the last riddle, go to next riddle
         if answer == riddles_data[riddle_index]['answer'].lower():
             if riddle_index < len(riddles_data) - 1:
                 riddle_index += 1
+                scores += 1
             else:
                 # After last riddle go to page with results
-                return render_template('end_game_results.html')
+                return redirect(url_for('game_results', username=username, scores=scores))
+        # Pass this riddle and go to next one
+        elif 'btn_pass' in request.form:
+            
+            if riddle_index < len(riddles_data) - 1:
+                riddle_index += 1
+            else:
+                # If last riddle go to page with results
+                return redirect(url_for('game_results', username=username, scores=scores))
         else:
+            # Add answer to wrong answers
             wrong_answers.append(answer)
+         
+    return render_template('game.html', username=username, online_users=online_users, riddles=riddles_data, riddle_index=riddle_index, wrong_answers=wrong_answers, scores=scores, all_scores=all_scores)
+
+@app.route('/results/<username>/<scores>')
+def game_results(username, scores):
     
-    return render_template('game.html', username=username, online_users=online_users, riddles=riddles_data, riddle_index=riddle_index, wrong_answers=wrong_answers)
+    return render_template('end_game_results.html', username=username, scores=scores)
 
 @app.route('/logout/<username>')
 def logout_user(username):

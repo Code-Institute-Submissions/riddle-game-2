@@ -8,8 +8,12 @@
 <form method="POST">
     <label for="answer">Answer:</label>
     <input type="text" id="answer" name="answer">
+    
     <input type="hidden" name="riddle_index" id="riddle_index" value={{riddle_index}}>
-    <button>Submit</button>
+    <input type="hidden" name="scores" id="scores" value={{scores}}>
+    
+    <button type="submit">Submit</button>
+    <button type="submit" name="btn_pass">No idea, pass this riddle</button>
 
 </form>
 
@@ -22,6 +26,10 @@
 {% endfor %}
 
 {% endif %}
+
+<hr>
+<h2>Scores:</h2>
+<p>{{ scores }} / {{ all_scores }}</p>
 
 <hr>
 <a href="{{ url_for('logout_user', username=username) }}">Logout</a>
