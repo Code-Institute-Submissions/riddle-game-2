@@ -3,6 +3,25 @@
 
 <p>Hi {{ username.title() }}! Guess the answer!</p>
 
+{{ riddles[riddle_index].question }}
+
+<form method="POST">
+    <label for="answer">Answer:</label>
+    <input type="text" id="answer" name="answer">
+    <input type="hidden" name="riddle_index" id="riddle_index" value={{riddle_index}}>
+    <button>Submit</button>
+
+</form>
+
+{% if wrong_answers %}
+
+<hr>
+<h2>Wrong answers</h2>
+{% for answer in wrong_answers %}
+<li>{{ answer }}</li>
+{% endfor %}
+
+{% endif %}
 
 <hr>
 <a href="{{ url_for('logout_user', username=username) }}">Logout</a>
