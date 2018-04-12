@@ -2,7 +2,8 @@ from flask import Flask, render_template, redirect, request, url_for
 import os
 import json
 import random
-# from datetime import datetime
+from datetime import datetime
+from operator import itemgetter
 
 app = Flask(__name__)
 app.secret_key = 'some_secret_key'
@@ -18,7 +19,6 @@ wrong_answers = []
 #     for number in random_number_list:
 #         random_index_list.append(number)
 
-
 def check_if_username_already_exists(selected_username):
     # Check if username already exists
     with open('data/users.txt', 'r') as users_file:
@@ -28,9 +28,26 @@ def check_if_username_already_exists(selected_username):
         else:
             return False
 
+def save_results(username, scores):
+    # Save results to a file
+    timestamp = datetime.now().strftime('%d-%m-%Y')
+    user_result = "{0} {1} {2}\n".format(scores, username.title(), timestamp)
+    with open('data/results.txt', 'a') as results_file:
+        results_file.writelines(user_result)
+        
+def get_top_scores():
+    # Get top results, sorted by top score
+    top_scores = []
+    with open('data/results.txt', 'r') as results_file:
+        lines = [line.split(' ') for line in results_file]
+    for line in sorted(lines, key=itemgetter(0), reverse=True):
+        top_scores.append(line)
+    return top_scores
+
 @app.route('/')
-def index():        
-    return render_template('index.html')
+def index():
+    top_scores = get_top_scores()
+    return render_template('index.html', top_scores=top_scores)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_user():
@@ -87,15 +104,17 @@ def user_play_game(username):
                 riddle_index += 1
                 scores += 1
             else:
-                # After last riddle go to page with results
+                # After last riddle go to page with results and save user result
+                save_results(username, scores)
                 return redirect(url_for('game_results', username=username, scores=scores))
         # Pass this riddle and go to next one
-        elif 'btn_pass' in request.form:
-            
-            if riddle_index < len(riddles_data) - 1:
+        elif 'btn_pass' in request.form:         
+            """ if riddle_index < len(riddles_data) - 1: """
+            if riddle_index < 5:
                 riddle_index += 1
             else:
-                # If last riddle go to page with results
+                # If last riddle go to page with results and save user result
+                save_results(username, scores)
                 return redirect(url_for('game_results', username=username, scores=scores))
         else:
             # Add answer to wrong answers

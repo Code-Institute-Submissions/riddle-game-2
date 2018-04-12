@@ -11,4 +11,20 @@
 <hr>
 <h2>Top Scores:</h2>
 
+
+<ol>
+    
+{% for top_score in top_scores %}
+
+<li>{{ top_score[1] }} - {{ top_score[0] }} scores - ({{ top_score[2] }})</li>
+
+{% endfor %}
+
+</ol>
+
+
+
+
+
+
 {% endblock %}
