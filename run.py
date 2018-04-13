@@ -38,8 +38,8 @@ def get_top_scores():
     return top_scores
 
 def add_to_wrong_answers(username, riddle_index, answer):
+    # Store wrong answer with username and riddle number
     riddle_number = riddle_index + 1
-    # riddle_answer = "({0} - {1} - {2})".format(riddle_number, username.title(), answer)
     riddle_answer = (riddle_number, username.title(), answer)
     wrong_answers.append(riddle_answer)
 
@@ -121,8 +121,9 @@ def user_play_game(username):
                 save_results(username, scores)
                 return redirect(url_for('game_results', username=username, scores=scores))
         else:
-            # Add answer to wrong answers
-            add_to_wrong_answers(username, riddle_index, answer)
+            # Add answer to wrong answers if answer is a word
+            if answer.isalpha():
+                add_to_wrong_answers(username, riddle_index, answer)
          
     return render_template('game.html', username=username, online_users=online_users, riddles=riddles_data, riddle_index=riddle_index, riddle_number=riddle_number, wrong_answers=wrong_answers, scores=scores, all_scores=all_scores)
 

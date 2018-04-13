@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<form method="POST">
-    <label for="username">Enter your username to start playing!</label>
-    <input type="text" id="username" name="username">
-    <button>Start Game</button>
-    {{ message }}
-</form>
+<section class="home-page-content">
+
+    <form method="POST" class="align-center">
+        <label for="username" class="form-label">Enter your username to start playing!</label>
+        <input type="text" id="username" name="username" placeholder="Username" class="form-input" required >
+        <button type="submit" class="btn-start-game">Start Game</button>
+        
+        <p class="login-error">{{ message }}</p>
+    </form>
+    
+</section>
+
+<section class="home-page-content">
+        <img src="{{ url_for('static', filename='img/142.png') }}" class="img-responsive" >
+</section>
+
 
 {% endblock %}

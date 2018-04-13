@@ -1,30 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Play Game!</h2>
-<p>First time here?</p>
-<a href="{{ url_for('register_user') }}">Register</a>
 
-<p>Existing users</p>
-<a href="{{ url_for('login_user') }}">Login</a>
+<section class="home-page-content">
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Play Game!</h2>
+            <p>Guess the answers to text riddles to gain scores.</p>
+            <p>You can pass the question if you don't know the answer.</p>
+        </div>
+        <div class="col-sm-6">
+            <h2>Login to start playing</h2>
+            <div class="col-sm-6">
+                <p>First time here?</p>
+                <a class="btn-login" href="{{ url_for('register_user') }}">Register</a>
+            </div>
+            <div class="col-sm-6">
+                <p>Existing users</p>
+                <a class="btn-login" href="{{ url_for('login_user') }}">Login</a>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 <hr>
-<h2>Top Scores:</h2>
 
-
-<ol>
+<section class="home-page-content">
     
-{% for top_score in top_scores %}
-
-<li>{{ top_score[1] }} - {{ top_score[0] }} scores - ({{ top_score[2] }})</li>
-
-{% endfor %}
-
-</ol>
-
-
-
-
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Top 5:</h2>        
+            <ol class="top-scores-list">           
+                
+                {% for top_score in top_scores[0:5] %}
+                <li><span class="top-scores-user">{{ top_score[1] }}</span> - <span class="top-scores-scores">{{ top_score[0] }} scores</span> - <span class="top-scores-date">({{ top_score[2] }})</span></li>
+                {% endfor %}
+                
+            </ol> 
+        </div>
+        <div class="col-sm-6">
+            <img src="{{ url_for('static', filename='img/260.jpg') }}" class="img-responsive img-thumbnail" >
+        </div>
+    </div>
+    
+         
+</section>
 
 
 {% endblock %}

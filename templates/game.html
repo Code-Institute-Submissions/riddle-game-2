@@ -1,47 +1,63 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<p>Hi {{ username.title() }}! Guess the answer!</p>
+<section class="game-page-content">
 
-<p>{{ riddle_number }}. {{ riddles[riddle_index].question }}</p>
-
-
-<form method="POST">
-    <label for="answer">Answer:</label>
-    <input type="text" id="answer" name="answer">
+    </div>
     
-    <input type="hidden" name="riddle_index" id="riddle_index" value={{riddle_index}}>
-    <input type="hidden" name="scores" id="scores" value={{scores}}>
+        <p class="align-center">Hey {{ username.title() }}! Guess the answer!</p>
+
+        <p class="question">{{ riddle_number }}. {{ riddles[riddle_index].question }}</p>
+               
+        <form method="POST">
+            <label for="answer" class="form-label">Answer:</label>
+            <input type="text" id="answer" name="answer" placeholder="Your guess" class="form-input">
+            
+            <input type="hidden" name="riddle_index" id="riddle_index" value={{riddle_index}}>
+            <input type="hidden" name="scores" id="scores" value={{scores}}>
+            
+            <button type="submit" class="btn-answer" >Submit</button>
+            <button type="submit" name="btn_pass" class="btn-pass" >No idea, pass this riddle</button>
+            
+            <p><small>(Hint: only one word)</small></p>
+
+            <a class="btn-logout-play-again float-right" href="{{ url_for('logout_user', username=username) }}">Logout</a>
+        
+        </form>
     
-    <button type="submit">Submit</button>
-    <button type="submit" name="btn_pass">No idea, pass this riddle</button>
+</section>
 
-</form>
+<hr class="clearfloat">
 
-{% if wrong_answers %}
+<section class="game-page-content">
+    <div class="row">
+        <div class="col-sm-3">
+            <h2>Scores:</h2>
+            <p class="current-scores">{{ scores }} / {{ all_scores }}</p>
+        </div>
+        
+        {% if wrong_answers %}
+        <div class="col-sm-5">
+            <h2>Wrong answers:</h2>
+            
+            {% for answer in wrong_answers %}                
+            <li>{{ answer[0] }}. riddle: <span class="wrong-answer">{{ answer[2].upper() }}</span> - ({{ answer[1] }})</li>               
+            {% endfor %}
+            
+        </div>
+        {% endif %}
+        
+        <div class="col-sm-4">
+            <h2>Online users:</h2>
 
-<hr>
-<h2>Wrong answers:</h2>
-{% for answer in wrong_answers %}
+            {% for user in online_users %}
+            <li>{{ user.title() }}</li>
+            {% endfor %}
+            
+        </div>
+    </div>    
+</section>
 
-<li>{{ answer[0] }}. riddle, {{ answer[1] }}: {{ answer[2] }}</li>
 
-{% endfor %}
-
-{% endif %}
-
-<hr>
-<h2>Scores:</h2>
-<p>{{ scores }} / {{ all_scores }}</p>
-
-<hr>
-<a href="{{ url_for('logout_user', username=username) }}">Logout</a>
-
-<hr>
-<h2>Online users:</h2>
-
-{% for user in online_users %}
-<li>{{ user.title() }}</li>
-{% endfor %}
 
 {% endblock %}

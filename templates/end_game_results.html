@@ -1,22 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Game over</h2>
-
-<h2>{{ username.title() }}, your score is {{ scores }}!</h2>
+<section class="results-page-content">
+    <div class="image-end-game">
+        <h2 class="align-center">Game over!</h2>
+        <h2 class="align-center end-game-score">{{ username.title() }}, your score is ... {{ scores }}!</h2>
+    
+        
+    <a class="btn-logout-play-again btn-results" href="{{ url_for('user_play_game', username=username) }}">Play again!</a>
+    <a class="btn-logout-play-again btn-results" href="{{ url_for('logout_user', username=username) }}">Logout</a>
+    
+    </div>
+</section>
 
 <hr>
-<h2>Top Scores:</h2>
 
+<section class="home-page-content">
+    <h2>Top Scores:</h2>
 
-<ol>
+    <ol class="top-scores-list">
+        <div class="row">
+            <div class="col-sm-6">
+                
+                    {% for top_score in top_scores[0:5] %}
+                    <li><span class="top-scores-user">{{ top_score[1] }}</span> - <span class="top-scores-scores">{{ top_score[0] }} scores</span> - <span class="top-scores-date">({{ top_score[2] }})</span></li>
+                    {% endfor %}
+                    
+            </div>
+            <div class="col-sm-6">
+                
+                    {% for top_score in top_scores[5:10] %}
+                    <li><span class="top-scores-user">{{ top_score[1] }}</span> - <span class="top-scores-scores">{{ top_score[0] }} scores</span> - <span class="top-scores-date">({{ top_score[2] }})</span></li>
+                    {% endfor %}
+                    
+            </div>
+        </div>
+            
+        
+    </ol> 
     
-{% for top_score in top_scores %}
-
-<li>{{ top_score[1] }} - {{ top_score[0] }} scores - ({{ top_score[2] }})</li>
-
-{% endfor %}
-
-</ol>
+</section>
 
 {% endblock %}
