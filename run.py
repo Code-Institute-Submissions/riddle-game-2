@@ -11,14 +11,6 @@ app.secret_key = 'some_secret_key'
 online_users = []
 wrong_answers = []
 
-# random_index_list = []
-# def get_random_index_list():
-#     # Get list with random numbers for riddle index
-#     numbers_in_range = list(range(0, 20))
-#     random_number_list = random.sample(numbers_in_range, 20)
-#     for number in random_number_list:
-#         random_index_list.append(number)
-
 def check_if_username_already_exists(selected_username):
     # Check if username already exists
     with open('data/users.txt', 'r') as users_file:
@@ -43,6 +35,12 @@ def get_top_scores():
     for line in sorted(lines, key=itemgetter(0), reverse=True):
         top_scores.append(line)
     return top_scores
+
+def add_to_wrong_answers(username, riddle_index, answer):
+    riddle_number = riddle_index + 1
+    # riddle_answer = "({0} - {1} - {2})".format(riddle_number, username.title(), answer)
+    riddle_answer = (riddle_number, username.title(), answer)
+    wrong_answers.append(riddle_answer)
 
 @app.route('/')
 def index():
@@ -89,6 +87,7 @@ def user_play_game(username):
         riddles_data = json.load(json_data)
     
     riddle_index = 0
+    riddle_number = 1
     all_scores = len(riddles_data)
     scores = 0
     
@@ -96,6 +95,8 @@ def user_play_game(username):
         answer = request.form['answer'].lower()
         # Get current index from template
         riddle_index = int(request.form['riddle_index'])
+        riddle_number = str(riddle_index + 1)
+
         # Get current scores from template
         scores = int(request.form['scores'])
         # If correct answer and not the last riddle, go to next riddle
@@ -118,9 +119,9 @@ def user_play_game(username):
                 return redirect(url_for('game_results', username=username, scores=scores))
         else:
             # Add answer to wrong answers
-            wrong_answers.append(answer)
+            add_to_wrong_answers(username, riddle_index, answer)
          
-    return render_template('game.html', username=username, online_users=online_users, riddles=riddles_data, riddle_index=riddle_index, wrong_answers=wrong_answers, scores=scores, all_scores=all_scores)
+    return render_template('game.html', username=username, online_users=online_users, riddles=riddles_data, riddle_index=riddle_index, riddle_number=riddle_number, wrong_answers=wrong_answers, scores=scores, all_scores=all_scores)
 
 @app.route('/results/<username>/<scores>')
 def game_results(username, scores):

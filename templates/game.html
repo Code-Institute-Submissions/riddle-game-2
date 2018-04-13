@@ -3,7 +3,8 @@
 
 <p>Hi {{ username.title() }}! Guess the answer!</p>
 
-{{ riddles[riddle_index].question }}
+<p>{{ riddle_number }}. {{ riddles[riddle_index].question }}</p>
+
 
 <form method="POST">
     <label for="answer">Answer:</label>
@@ -22,7 +23,9 @@
 <hr>
 <h2>Wrong answers</h2>
 {% for answer in wrong_answers %}
-<li>{{ answer }}</li>
+
+<li>{{ answer[0] }}. riddle, {{ answer[1] }}: {{ answer[2] }}</li>
+
 {% endfor %}
 
 {% endif %}
