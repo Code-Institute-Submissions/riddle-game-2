@@ -4,6 +4,7 @@ import json
 import random
 from datetime import datetime
 from operator import itemgetter
+# from natsort import natsorted
 
 app = Flask(__name__)
 app.secret_key = 'some_secret_key'
@@ -95,7 +96,7 @@ def user_play_game(username):
         answer = request.form['answer'].lower()
         # Get current index from template
         riddle_index = int(request.form['riddle_index'])
-        riddle_number = str(riddle_index + 1)
+        riddle_number = riddle_index + 1
 
         # Get current scores from template
         scores = int(request.form['scores'])
@@ -103,16 +104,18 @@ def user_play_game(username):
         if answer == riddles_data[riddle_index]['answer'].lower():
             if riddle_index < len(riddles_data) - 1:
                 riddle_index += 1
+                riddle_number += 1
                 scores += 1
             else:
+                scores += 1
                 # After last riddle go to page with results and save user result
                 save_results(username, scores)
                 return redirect(url_for('game_results', username=username, scores=scores))
         # Pass this riddle and go to next one
         elif 'btn_pass' in request.form:         
-            """ if riddle_index < len(riddles_data) - 1: """
-            if riddle_index < 5:
+            if riddle_index < len(riddles_data) - 1:
                 riddle_index += 1
+                riddle_number += 1
             else:
                 # If last riddle go to page with results and save user result
                 save_results(username, scores)
@@ -125,8 +128,9 @@ def user_play_game(username):
 
 @app.route('/results/<username>/<scores>')
 def game_results(username, scores):
+    top_scores = get_top_scores()
     
-    return render_template('end_game_results.html', username=username, scores=scores)
+    return render_template('end_game_results.html', username=username, scores=scores, top_scores=top_scores)
 
 @app.route('/logout/<username>')
 def logout_user(username):

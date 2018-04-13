@@ -11,7 +11,7 @@
     },
     {
         "id": 3,
-        "question": "I have keys but no locks. I have a space but no room. You can enter, but can’t go outside. What am I?",
+        "question": "I have keys but no locks. I have a space but no room. You can enter, but can't go outside. What am I?",
         "answer": "Keyboard"
     },
     {
@@ -31,7 +31,7 @@
     },
     {
         "id": 7,
-        "question": "I’m always there, some distance away. Somewhere between land or sea and sky I lay. You may move towards me, yet distant I stay.",
+        "question": "I'm always there, some distance away. Somewhere between land or sea and sky I lay. You may move towards me, yet distant I stay.",
         "answer": "Horizon"
     },
     {
@@ -41,12 +41,12 @@
     },
     {
         "id": 9,
-        "question": "What’s in a man’s pants that you won’t find in a girl’s dress?",
+        "question": "What's in a man's pants that you won't find in a girl's dress?",
         "answer": "Pockets"
     },
     {
         "id": 10,
-        "question": "What is the only 5 letter word that becomes larger when you add the letter “r” to it?",
+        "question": "What is the only 5 letter word that becomes larger when you add the letter ''r'' to it?",
         "answer": "Large"
     },
     {
