@@ -39,10 +39,18 @@
         {% if wrong_answers %}
         <div class="col-sm-5">
             <h2>Wrong answers:</h2>
+
+            {% for answer in wrong_answers %}
+            {% if answer[0] == riddle_number %}
             
-            {% for answer in wrong_answers %}                
-            <li>{{ answer[0] }}. riddle: <span class="wrong-answer">{{ answer[2].upper() }}</span> - ({{ answer[1] }})</li>               
+            <li><span class="wrong-answer">{{ answer[2].upper() }}</span> - ({{ answer[1] }})</li>
+            
+            {% endif %}
             {% endfor %}
+            
+            <!-- {% for answer in wrong_answers %}                
+            <li>{{ answer[0] }}. riddle: <span class="wrong-answer">{{ answer[2].upper() }}</span> - ({{ answer[1] }})</li>               
+            {% endfor %} -->
             
         </div>
         {% endif %}
