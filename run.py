@@ -4,7 +4,7 @@ import json
 import random
 from datetime import datetime
 from operator import itemgetter
-# from natsort import natsorted
+from natsort import natsorted
 
 app = Flask(__name__)
 app.secret_key = 'some_secret_key'
@@ -33,7 +33,7 @@ def get_top_scores():
     top_scores = []
     with open('data/results.txt', 'r') as results_file:
         lines = [line.split(' ') for line in results_file]
-    for line in sorted(lines, key=itemgetter(0), reverse=True):
+    for line in natsorted(lines, key=itemgetter(0), reverse=True):
         top_scores.append(line)
     return top_scores
 
