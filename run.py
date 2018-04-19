@@ -9,17 +9,20 @@ from natsort import natsorted
 app = Flask(__name__)
 app.secret_key = 'some_secret_key'
 
+riddles_data = []
 online_users = []
 wrong_answers = []
+
+# Load data from riddles.json
+with open('data/riddles.json', 'r') as json_data:
+    riddles_data = json.load(json_data)
+    
 
 def check_if_username_already_exists(selected_username):
     # Check if username already exists
     with open('data/users.txt', 'r') as users_file:
-        users_list = [line.rstrip() for line in users_file]
-        if selected_username in users_list:
-            return True
-        else:
-            return False
+        users_list = [line.rstrip() for line in users_file]        
+        return True if selected_username in users_list else False
 
 def save_results(username, scores):
     # Save results to a file
@@ -36,7 +39,7 @@ def get_top_scores():
     for line in natsorted(lines, key=itemgetter(0), reverse=True):
         top_scores.append(line)
     return top_scores
-
+                
 def add_to_wrong_answers(username, riddle_index, answer):
     # Store wrong answer with username and riddle number
     riddle_number = riddle_index + 1
@@ -82,10 +85,6 @@ def login_user():
 
 @app.route('/<username>', methods=['GET', 'POST'])
 def user_play_game(username):   
-    riddles_data = []
-    # Load data from riddles.json
-    with open('data/riddles.json', 'r') as json_data:
-        riddles_data = json.load(json_data)
     
     riddle_index = 0
     riddle_number = 1
@@ -100,6 +99,7 @@ def user_play_game(username):
 
         # Get current scores from template
         scores = int(request.form['scores'])
+
         # If correct answer and not the last riddle, go to next riddle
         if answer == riddles_data[riddle_index]['answer'].lower():
             if riddle_index < len(riddles_data) - 1:
@@ -138,9 +138,9 @@ def logout_user(username):
     # Remove user from online users and redirect to home page
     online_users.remove(username)
     return redirect('/')
+    
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
-            # port=os.environ.get('PORT'),
-            port=int(os.environ.get('PORT')),
+            port = int(os.environ.get('PORT', 5000)),
             debug=True)
