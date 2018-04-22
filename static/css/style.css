@@ -4,15 +4,35 @@ body {
     overflow-x: hidden;
     background-color: #e3e3e3;
     color: #000;
+    height: 100%;
+}
+
+.footer {
+    width: 100%;
+}
+
+.signature {
+    text-align: center;
+    font-style: italic;
+    color: #e3e3e3;
+    background-color: #610cbc;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 0;
 }
 
 section {
     max-width: 1400px;
 }
 
+.main-container {
+    min-height: 78vh;
+    margin-bottom: 20px;
+}
+
 .home-page-content {
-    margin-top: 50px;
-    margin-bottom: 100px;
+    margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 .game-page-content {
@@ -69,6 +89,10 @@ li {
 
 .align-center {
     text-align: center;
+}
+
+.top-scores-offset-left {
+    padding-left: 10vw;
 }
 
 .float-right {
@@ -244,3 +268,20 @@ a:hover {
     padding: 13px 0 15px;
 }
 
+/* ------------------------------------------------------------------------------ Media Queries */
+
+@media (min-width: 768px) {
+    .home-page-content {
+        margin-top: 50px;
+        margin-bottom: 80px;
+    }
+    
+    .top-scores-offset-left {
+        padding-left: 15px;
+    }
+    
+    .game-page-content {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}

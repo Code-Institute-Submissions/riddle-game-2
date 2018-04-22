@@ -4,22 +4,29 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="Riddle Game | A web application game that asks players to guess the answer to a text-based riddle.">
+        <meta property="og:title" content="Riddle Game">
+        <meta property="og:description" content="A web application game that asks players to guess the answer to a text-based riddle.">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" >
         <link href="https://fonts.googleapis.com/css?family=Exo+2:300,400,500,600,700,900" rel="stylesheet" >
-        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" type="text/css" /> -->
-        <link rel="stylesheet" type="text/css" href="/static/css/style.css?q=1344353335353500" >
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />
+        <!-- <link rel="stylesheet" type="text/css" href="/static/css/style.css?q=13750" > -->
         <title>Riddle Game</title>
     </head>
 
     <body>
         <h1>The Riddle Game</h1>
 
-        <section class="container">
+        <section class="container main-container">
             
             {% block content %} 
             {% endblock %}
         
         </section>
+        
+        <footer class="footer">
+            <p class="signature">tjasajan&nbsp; | &nbsp;2018</p>
+        </footer>
             
     </body>
 
