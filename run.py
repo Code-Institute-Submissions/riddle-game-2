@@ -16,7 +16,6 @@ wrong_answers = []
 # Load data from riddles.json
 with open('data/riddles.json', 'r') as json_data:
     riddles_data = json.load(json_data)
-    
 
 def check_if_username_already_exists(selected_username):
     # Check if username already exists
@@ -84,8 +83,7 @@ def login_user():
     return render_template('login.html')
 
 @app.route('/<username>', methods=['GET', 'POST'])
-def user_play_game(username):   
-    
+def user_play_game(username):      
     riddle_index = 0
     riddle_number = 1
     all_scores = len(riddles_data)
@@ -96,10 +94,8 @@ def user_play_game(username):
         # Get current index from template
         riddle_index = int(request.form['riddle_index'])
         riddle_number = riddle_index + 1
-
         # Get current scores from template
         scores = int(request.form['scores'])
-
         # If correct answer and not the last riddle, go to next riddle
         if answer == riddles_data[riddle_index]['answer'].lower():
             if riddle_index < len(riddles_data) - 1:
@@ -123,14 +119,12 @@ def user_play_game(username):
         else:
             # Add answer to wrong answers if answer is a word
             if answer.isalpha():
-                add_to_wrong_answers(username, riddle_index, answer)
-         
+                add_to_wrong_answers(username, riddle_index, answer)         
     return render_template('game.html', username=username, online_users=online_users, riddles=riddles_data, riddle_index=riddle_index, riddle_number=riddle_number, wrong_answers=wrong_answers, scores=scores, all_scores=all_scores)
 
 @app.route('/results/<username>/<scores>')
 def game_results(username, scores):
-    top_scores = get_top_scores()
-    
+    top_scores = get_top_scores()    
     return render_template('end_game_results.html', username=username, scores=scores, top_scores=top_scores)
 
 @app.route('/logout/<username>')
@@ -142,5 +136,5 @@ def logout_user(username):
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
-            port = int(os.environ.get('PORT', 5000)),
+            port=int(os.environ.get('PORT', 5000)),
             debug=True)
