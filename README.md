@@ -63,6 +63,7 @@ class TestRiddle(unittest.TestCase):
         self.assertEqual(check1, True)
         self.assertEqual(check2, False)
 ```
+There are also tests for checking the answers - if answers with different capitalization are accepted and if answer contains only alphabetic characters. 
 
 Most of the tests were done manually and with help of a print function for each new functionality. There were some bugs during developement, for example the list of top results was sorted only by the first number. I found natsort module to sort two digit numbers to get results displayed correctly. 
 
