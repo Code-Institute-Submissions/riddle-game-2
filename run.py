@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, flash
 import os
 import json
 import random
@@ -45,6 +45,12 @@ def add_to_wrong_answers(username, riddle_index, answer):
     riddle_answer = (riddle_number, username.title(), answer)
     wrong_answers.append(riddle_answer)
 
+def answer_to_lowercase(answer):
+    return answer.lower()
+
+def answer_is_a_word(answer):
+    return True if answer.isalpha() else False
+
 @app.route('/')
 def index():
     top_scores = get_top_scores()
@@ -90,14 +96,14 @@ def user_play_game(username):
     scores = 0
     
     if request.method == 'POST':
-        answer = request.form['answer'].lower()
+        answer = answer_to_lowercase(request.form['answer'])
         # Get current index from template
         riddle_index = int(request.form['riddle_index'])
         riddle_number = riddle_index + 1
         # Get current scores from template
         scores = int(request.form['scores'])
         # If correct answer and not the last riddle, go to next riddle
-        if answer == riddles_data[riddle_index]['answer'].lower():
+        if answer == answer_to_lowercase(riddles_data[riddle_index]['answer']):
             if riddle_index < len(riddles_data) - 1:
                 riddle_index += 1
                 riddle_number += 1
@@ -118,8 +124,10 @@ def user_play_game(username):
                 return redirect(url_for('game_results', username=username, scores=scores))
         else:
             # Add answer to wrong answers if answer is a word
-            if answer.isalpha():
-                add_to_wrong_answers(username, riddle_index, answer)         
+            if answer_is_a_word(answer):
+                add_to_wrong_answers(username, riddle_index, answer)  
+            else:
+                flash('This answer is not a word, try again')       
     return render_template('game.html', username=username, online_users=online_users, riddles=riddles_data, riddle_index=riddle_index, riddle_number=riddle_number, wrong_answers=wrong_answers, scores=scores, all_scores=all_scores)
 
 @app.route('/results/<username>/<scores>')

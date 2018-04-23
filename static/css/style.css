@@ -107,7 +107,8 @@ hr {
     border-top: 3px solid #eee;
 }
 
-.login-error {
+.login-error,
+.answer-error {
     margin-top: 10px;
     font-style: italic;
     color: #b10b0b;

@@ -20,6 +20,15 @@
             <button type="submit" name="btn_pass" class="btn-pass" >No idea, pass this riddle</button>
             
             <p><small>(Hint: only one word)</small></p>
+            
+            
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="answer-error">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
             <a class="btn-logout-play-again float-right" href="{{ url_for('logout_user', username=username) }}">Logout</a>
         
